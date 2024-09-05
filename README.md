@@ -22,6 +22,11 @@ Reads the `schema.prisma` file, create and execute a migration
 $ npx prisma migration dev --{name} init
 ```
 
+Run all undeployed migrations
+```bash
+$ npm run migrate:deploy
+```
+
 Seed the database
 ```bash
 $ npm run seed
