@@ -1,0 +1,52 @@
+version: "3.7"
+services:
+  brain-ag-api:
+    image: brain-ag-api
+    container_name: brain-ag-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3333:3333"
+    volumes:
+      - .:/usr/src/app
+    command: npm run start:dev
+    depends_on:
+      - db
+    networks:
+      - brain-ag-network
+    env_file:
+      - ./.env
+    stop_grace_period: 1m
+    links:
+      - db
+
+  db:
+    image: postgres:15-alpine
+    container_name: brain-ag-postgres
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./init/initData.sql:/docker-entrypoint-initdb.d/
+    environment:
+      POSTGRES_DB: brain-agriculture
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      PGDATA: /data/postgres
+    ports:
+      - 5432:5432
+    networks:
+      - brain-ag-network
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d postgres" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+networks:
+  brain-ag-network:
+    driver: bridge
+
+volumes:
+  pg-data:
+    driver: local
