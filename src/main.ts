@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule } from '@nestjs/swagger';
-import { documentBuilderConfig } from './core/config/documentBuilder';
+import { documentBuilderConfig } from './infra/docs/documentBuilder';
 import { ZodFilter } from './core/errors/filters/zod.filter';
 import { ConfigService } from '@nestjs/config';
-import { Env } from './env';
+import { Env } from './infra/config/types';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

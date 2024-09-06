@@ -3,7 +3,7 @@ import { ProducersModule } from './modules/producers/producers.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { CulturesModule } from './modules/cultures/cultures.module';
 import { ConfigModule } from '@nestjs/config';
-import { envSchema } from './env';
+import { envSchema } from './infra/config/env';
 
 @Module({
   imports: [

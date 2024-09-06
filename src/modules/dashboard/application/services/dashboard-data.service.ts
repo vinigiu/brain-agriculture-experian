@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { GetDashboardDataResponseDto } from '../../dto/response';
+import { Service } from '@/core/service/service';
 
 @Injectable()
-class DashboardDataService {
+class DashboardDataService extends Service {
   async execute(): Promise<GetDashboardDataResponseDto> {
     return {
       soilUse: {
