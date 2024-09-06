@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-class ListAllProducersService {}
+class ListAllProducersService {
+  async execute() {}
+}
 
 export { ListAllProducersService };
