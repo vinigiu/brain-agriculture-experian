@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { CustomLoggerService } from './logger.service';
+import { CustomLoggerService, stream } from './logger.service';
 import { Logger } from '@/core/logger';
 import { CustomConfigModule } from '../config/customConfig.module';
 import { Config } from '@/core/config';
 import { LoggerModule } from 'nestjs-pino';
 import { randomUUID } from 'crypto';
+import { Env } from '../config';
 
 @Module({
   providers: [{ useClass: CustomLoggerService, provide: Logger }],
@@ -13,9 +14,11 @@ import { randomUUID } from 'crypto';
     LoggerModule.forRootAsync({
       imports: [CustomConfigModule],
       inject: [Config],
-      useFactory: () => {
+      useFactory: (config: Config<Env>) => {
+        const env = config.get('NODE_ENV');
         return {
           pinoHttp: {
+            stream: env !== 'production' ? stream : undefined,
             customSuccessMessage(req) {
               return `Request ${req.method}: ${req.url?.split('?')[0]} succeded`;
             },

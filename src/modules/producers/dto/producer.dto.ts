@@ -9,9 +9,9 @@ class ProducerDto {
 
   farms: Array<FarmDto>;
 
-  createdAt: Date;
+  createdAt: string;
 
-  updatedAt: Date;
+  updatedAt: string;
 }
 
 export { ProducerDto };

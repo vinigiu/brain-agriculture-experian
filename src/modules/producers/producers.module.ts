@@ -7,8 +7,10 @@ import {
   ListAllProducersService,
   UpdateProducerService,
 } from './application/services';
+import { CustomLoggerModule, CustomLoggerService } from '@/infra/logger';
 
 @Module({
+  imports: [CustomLoggerModule],
   controllers: [ProducersController],
   providers: [
     CreateProducerService,
@@ -16,6 +18,7 @@ import {
     DetailProducerService,
     ListAllProducersService,
     UpdateProducerService,
+    CustomLoggerService,
   ],
 })
 class ProducersModule {}

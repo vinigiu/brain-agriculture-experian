@@ -1,9 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { GetDashboardDataResponseDto } from '../../dto/response';
 import { Service } from '@/core/service/service';
+import { CustomLoggerService } from '@/infra/logger';
 
 @Injectable()
 class DashboardDataService extends Service {
+  constructor(readonly logger: CustomLoggerService) {
+    super(logger);
+  }
+
   async execute(): Promise<GetDashboardDataResponseDto> {
     return {
       soilUse: {

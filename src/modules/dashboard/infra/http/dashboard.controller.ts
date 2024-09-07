@@ -2,7 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { DashboardDataService } from '../../application/services';
 import { GetDashboardDataResponseDto } from '../../dto/response';
 
-@Controller('dashboard')
+@Controller('dashboards')
 class DashboardController {
   constructor(private readonly dashboardDataService: DashboardDataService) {}
 

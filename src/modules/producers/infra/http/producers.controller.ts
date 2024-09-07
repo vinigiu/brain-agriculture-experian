@@ -15,6 +15,12 @@ import {
   UpdateProducerService,
 } from '../../application/services';
 import { UpdateCreateDeleteProducersDto } from '../../dto/response/updateCreateDeleteProducer.dto';
+import { ListAllProducersDto } from '../../dto/response/listAllProducers.dto';
+import { DetailProducersDto } from '../../dto/response/detailProducer.dto';
+import { ZodPipe } from '@/infra/pipes/zod-validation-pipe';
+import { createProducerSchema } from '../../application/schemas/createProducerSchema';
+import { updateProducerSchema } from '../../application/schemas/updateProducerSchema';
+import { CreateProducerDto, UpdateProducerDto } from '../../dto/request';
 
 @Controller('producers')
 class ProducersController {
@@ -27,25 +33,25 @@ class ProducersController {
   ) {}
 
   @Get()
-  async listAll() {
+  async listAll(): Promise<ListAllProducersDto> {
     return this.listAllProducersService.execute();
   }
 
   @Get(':id')
-  async detail(@Param('id') id: string) {
+  async detail(@Param('id') id: string): Promise<DetailProducersDto> {
     return this.detailProducerService.execute(id);
   }
 
   @Post()
   async create(
-    @Body() createProducerDto: any,
+    @Body(ZodPipe(createProducerSchema)) createProducerDto: CreateProducerDto,
   ): Promise<UpdateCreateDeleteProducersDto> {
     return this.createProducerService.execute(createProducerDto);
   }
 
   @Patch()
   async update(
-    @Body() updateProducerDto: any,
+    @Body(ZodPipe(updateProducerSchema)) updateProducerDto: UpdateProducerDto,
   ): Promise<UpdateCreateDeleteProducersDto> {
     return this.updateProducerService.execute(updateProducerDto);
   }

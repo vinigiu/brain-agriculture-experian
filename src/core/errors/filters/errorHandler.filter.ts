@@ -1,7 +1,7 @@
 import { ExceptionFilter, Catch, ArgumentsHost } from '@nestjs/common';
 import { Response } from 'express';
 import { ErrorHandlerException } from '../exceptions';
-import { ErrorHandlerExceptionFilterResponse } from 'src/core/types';
+import { ErrorHandlerExceptionFilterResponse } from '@/core/types';
 // import { LoggerCustomService } from '../../../infra/logger/logger.service';
 import { ConfigService } from '@nestjs/config';
 
