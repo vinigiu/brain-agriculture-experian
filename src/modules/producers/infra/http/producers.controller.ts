@@ -49,11 +49,12 @@ class ProducersController {
     return this.createProducerService.execute(createProducerDto);
   }
 
-  @Patch()
+  @Patch(':id')
   async update(
+    @Param('id') id: string,
     @Body(ZodPipe(updateProducerSchema)) updateProducerDto: UpdateProducerDto,
   ): Promise<UpdateCreateDeleteProducersDto> {
-    return this.updateProducerService.execute(updateProducerDto);
+    return this.updateProducerService.execute(updateProducerDto, id);
   }
 
   @Delete(':id')

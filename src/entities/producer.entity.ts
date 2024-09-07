@@ -1,5 +1,6 @@
-import { Farm, Producer } from '@prisma/client';
+import { Producer } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
+import { FarmEntity } from './farm.entity';
 
 class ProducerEntity implements Producer {
   @ApiProperty()
@@ -12,7 +13,7 @@ class ProducerEntity implements Producer {
   document: string;
 
   @ApiProperty()
-  farms: Array<Farm>;
+  farms: Array<FarmEntity>;
 
   @ApiProperty()
   createdAt: Date;

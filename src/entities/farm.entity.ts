@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Culture, Farm } from '@prisma/client';
+import { Farm } from '@prisma/client';
+import { CultureEntity } from './culture.entity';
 
 class FarmEntity implements Farm {
   @ApiProperty()
@@ -24,7 +25,7 @@ class FarmEntity implements Farm {
   vegetationArea: number;
 
   @ApiProperty()
-  cultures: Culture[];
+  cultures: CultureEntity[];
 
   @ApiProperty()
   producerId: string;

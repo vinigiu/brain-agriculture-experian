@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
-import { FarmDto } from '../farm.dto';
+import { Farm } from '@prisma/client';
 
 class UpdateProducerDto {
   @IsString()
@@ -13,7 +13,7 @@ class UpdateProducerDto {
 
   @IsString()
   @ApiProperty()
-  farms?: Array<FarmDto>;
+  farms?: Array<Partial<Farm>>;
 }
 
 export { UpdateProducerDto };

@@ -1,4 +1,4 @@
-import { FarmDto } from './farm.dto';
+import { FarmEntity } from '@/entities/farm.entity';
 
 class ProducerDto {
   id: string;
@@ -7,11 +7,11 @@ class ProducerDto {
 
   document: string;
 
-  farms: Array<FarmDto>;
+  farms: Array<FarmEntity>;
 
-  createdAt: string;
+  createdAt: Date;
 
-  updatedAt: string;
+  updatedAt: Date;
 }
 
 export { ProducerDto };

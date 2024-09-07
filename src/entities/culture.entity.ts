@@ -9,7 +9,7 @@ class CultureEntity implements Culture {
   name: string;
 
   @ApiProperty()
-  farms: Array<Farm>;
+  farms?: Array<Farm>;
 
   @ApiProperty()
   createdAt: Date;

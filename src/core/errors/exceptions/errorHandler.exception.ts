@@ -11,7 +11,8 @@ export class ErrorHandlerException extends Error {
   protected constructor(message: string, prefix: string, data?: unknown) {
     super(message);
 
-    this._messageTreated = httpError[message].message || 'Internal server error.';
+    this._messageTreated =
+      httpError[message].message || 'Internal server error.';
     this._status = httpError[message].statusCode || 500;
     this._timestamp = new Date().toISOString();
     this._data = data;
