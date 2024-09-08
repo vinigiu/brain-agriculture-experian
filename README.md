@@ -19,7 +19,7 @@ $ npm run generate
 
 Reads the `schema.prisma` file, create and execute a migration
 ```bash
-$ npx prisma migration dev --{name} init
+$ npx prisma migrate dev --name {migrationName} init
 ```
 
 Run all undeployed migrations

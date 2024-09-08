@@ -55,10 +55,10 @@ describe('ProducersController (e2e)', () => {
   it('/ (CREATE)', async () => {
     const { body: responseCultures } = await apiClient().get('/cultures')
     const data = { ... crateProducerMock };
-    data.farms.cultures = { 
+    data.farms[0].cultures.push({ 
       id: responseCultures.cultures[0].id,
       name: responseCultures.cultures[0].name,
-    }
+    })
 
     const { body: response } = await apiClient().post(`/producers`).send(data).expect(200)
     

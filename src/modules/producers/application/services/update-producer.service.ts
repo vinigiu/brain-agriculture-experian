@@ -22,15 +22,17 @@ class UpdateProducerService extends Service {
     dto: UpdateProducerDto,
     id: string,
   ): Promise<UpdateCreateDeleteProducersDto> {
-    for (const farm of dto.farms) {
-      const isValid = isAreasValid({
-        cultivableArea: farm.cultivableArea,
-        totalArea: farm.totalArea,
-        vegetationArea: farm.vegetationArea,
-      });
+    if (Array.isArray(dto.farms)) {
+      for (const farm of dto.farms) {
+        const isValid = isAreasValid({
+          cultivableArea: farm.cultivableArea,
+          totalArea: farm.totalArea,
+          vegetationArea: farm.vegetationArea,
+        });
 
-      if (!isValid)
-        throw new ApplicationException(HttpErrorMessages.BAD_REQUEST_AREAS);
+        if (!isValid)
+          throw new ApplicationException(HttpErrorMessages.BAD_REQUEST_AREAS);
+      }
     }
 
     const updatedProducer = await this.producersRespository.update(dto, id);

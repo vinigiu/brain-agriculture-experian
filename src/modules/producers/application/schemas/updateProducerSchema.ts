@@ -2,6 +2,11 @@ import { cnpjValidator } from '@/core/utils/cnpjValidator.utils';
 import { cpfValidator } from '@/core/utils/cpfValidator.utils';
 import { z } from 'zod';
 
+const cultureSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+});
+
 const updateFarmSchema = z
   .object({
     name: z.string().optional(),
@@ -10,7 +15,7 @@ const updateFarmSchema = z
     totalArea: z.number().optional(),
     cultivableArea: z.number().optional(),
     vegetationArea: z.number().optional(),
-    cultures: z.array(z.string()).optional(),
+    cultures: z.array(cultureSchema).optional(),
   })
   .optional();
 

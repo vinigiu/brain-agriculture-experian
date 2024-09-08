@@ -35,7 +35,7 @@ model Farm {
   totalArea      Float
   cultivableArea Float
   vegetationArea Float
-  cultures       Culture[]
+  cultures       Culture[] @relation("FarmCultures")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -45,7 +45,7 @@ model Farm {
 model Culture {
   id        String   @id @default(uuid())
   name      String
-  farms     Farm[]
+  farms     Farm[]   @relation("FarmCultures")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
     

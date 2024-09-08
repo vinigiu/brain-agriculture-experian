@@ -17,8 +17,23 @@ class ProducersRepository implements IProducersRepository {
         name: data.name,
         document: data.document,
         farms: {
-          createMany: {
-            data: data.farms,
+          create: data.farms.map((farm) => ({
+            name: farm.name,
+            city: farm.city,
+            state: farm.state,
+            cultivableArea: farm.cultivableArea,
+            totalArea: farm.totalArea,
+            vegetationArea: farm.vegetationArea,
+            cultures: {
+              connect: farm.cultures.map((culture) => ({ id: culture.id })),
+            },
+          })),
+        },
+      },
+      include: {
+        farms: {
+          include: {
+            cultures: true,
           },
         },
       },
@@ -53,11 +68,42 @@ class ProducersRepository implements IProducersRepository {
   }
 
   async delete(id: string): Promise<{ id: string }> {
-    const data = await this.prisma.producer.delete({
-      where: { id },
+    let deletedProducer;
+    await this.prisma.$transaction(async (prisma) => {
+      const farms = await prisma.farm.findMany({
+        where: { producerId: id },
+        include: { cultures: true },
+      });
+
+      const farmIdsToDelete = farms.map((farm) => farm.id);
+
+      const cultureIds = new Set(
+        farms.flatMap((farm) => farm.cultures.map((culture) => culture.id)),
+      );
+
+      await Promise.all(
+        Array.from(cultureIds).map((cultureId) =>
+          prisma.culture.update({
+            where: { id: cultureId },
+            data: {
+              farms: {
+                disconnect: farms.map((farm) => ({ id: farm.id })),
+              },
+            },
+          }),
+        ),
+      );
+
+      await prisma.farm.deleteMany({
+        where: { id: { in: farmIdsToDelete } },
+      });
+
+      deletedProducer = await prisma.producer.delete({
+        where: { id: id },
+      });
     });
 
-    return { id: data.id };
+    return { id: deletedProducer.id };
   }
 
   async update(data: UpdateProducerDto, id: string): Promise<Producer> {
@@ -77,33 +123,35 @@ class ProducersRepository implements IProducersRepository {
     });
 
     for (const actualFarm of updatedProducer.farms) {
-      for (const updatingFarmData of data.farms) {
-        if (actualFarm.id === updatingFarmData.id) {
-          const farmsData = {};
+      if (Array.isArray(data.farms)) {
+        for (const updatingFarmData of data.farms) {
+          if (actualFarm.id === updatingFarmData.id) {
+            const farmsData = {};
 
-          if (updatingFarmData.city)
-            Object.assign(farmsData, { city: updatingFarmData.city });
-          if (updatingFarmData.name)
-            Object.assign(farmsData, { name: updatingFarmData.name });
-          if (updatingFarmData.state)
-            Object.assign(farmsData, { state: updatingFarmData.state });
-          if (updatingFarmData.cultivableArea)
-            Object.assign(farmsData, {
-              cultivableArea: updatingFarmData.cultivableArea,
-            });
-          if (updatingFarmData.totalArea)
-            Object.assign(farmsData, {
-              totalArea: updatingFarmData.totalArea,
-            });
-          if (updatingFarmData.vegetationArea)
-            Object.assign(farmsData, {
-              vegetationArea: updatingFarmData.vegetationArea,
-            });
-          if (Object.keys(farmsData).length === 0)
-            await this.prisma.farm.update({
-              where: { id: updatingFarmData.id },
-              data: farmsData,
-            });
+            if (updatingFarmData.city)
+              Object.assign(farmsData, { city: updatingFarmData.city });
+            if (updatingFarmData.name)
+              Object.assign(farmsData, { name: updatingFarmData.name });
+            if (updatingFarmData.state)
+              Object.assign(farmsData, { state: updatingFarmData.state });
+            if (updatingFarmData.cultivableArea)
+              Object.assign(farmsData, {
+                cultivableArea: updatingFarmData.cultivableArea,
+              });
+            if (updatingFarmData.totalArea)
+              Object.assign(farmsData, {
+                totalArea: updatingFarmData.totalArea,
+              });
+            if (updatingFarmData.vegetationArea)
+              Object.assign(farmsData, {
+                vegetationArea: updatingFarmData.vegetationArea,
+              });
+            if (Object.keys(farmsData).length === 0)
+              await this.prisma.farm.update({
+                where: { id: updatingFarmData.id },
+                data: farmsData,
+              });
+          }
         }
       }
     }
