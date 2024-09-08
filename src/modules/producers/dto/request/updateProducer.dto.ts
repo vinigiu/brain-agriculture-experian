@@ -12,7 +12,7 @@ class UpdateProducerDto {
   name?: string;
 
   @IsString()
-  @ApiProperty()
+  @ApiProperty({ isArray: true })
   farms?: Array<Partial<Farm>>;
 }
 

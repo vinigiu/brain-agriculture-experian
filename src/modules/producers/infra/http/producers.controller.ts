@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Patch,
   Post,
@@ -21,6 +22,15 @@ import { ZodPipe } from '@/infra/pipes/zod-validation-pipe';
 import { createProducerSchema } from '../../application/schemas/createProducerSchema';
 import { updateProducerSchema } from '../../application/schemas/updateProducerSchema';
 import { CreateProducerDto, UpdateProducerDto } from '../../dto/request';
+import {
+  ApiBadRequestResponse,
+  ApiInternalServerErrorResponse,
+  ApiOkResponse,
+} from '@nestjs/swagger';
+import {
+  ErrorBadRequestZodResponseDto,
+  ErrorInternalServerResponseDto,
+} from '@/infra/docs/dto/error';
 
 @Controller('producers')
 class ProducersController {
@@ -33,16 +43,24 @@ class ProducersController {
   ) {}
 
   @Get()
+  @ApiOkResponse({ type: ListAllProducersDto })
+  @ApiInternalServerErrorResponse({ type: ErrorInternalServerResponseDto })
   async listAll(): Promise<ListAllProducersDto> {
     return this.listAllProducersService.execute();
   }
 
   @Get(':id')
+  @ApiOkResponse({ type: DetailProducersDto })
+  @ApiInternalServerErrorResponse({ type: ErrorInternalServerResponseDto })
   async detail(@Param('id') id: string): Promise<DetailProducersDto> {
     return this.detailProducerService.execute(id);
   }
 
   @Post()
+  @HttpCode(200)
+  @ApiOkResponse({ type: UpdateCreateDeleteProducersDto })
+  @ApiBadRequestResponse({ type: ErrorBadRequestZodResponseDto })
+  @ApiInternalServerErrorResponse({ type: ErrorInternalServerResponseDto })
   async create(
     @Body(ZodPipe(createProducerSchema)) createProducerDto: CreateProducerDto,
   ): Promise<UpdateCreateDeleteProducersDto> {
@@ -50,6 +68,10 @@ class ProducersController {
   }
 
   @Patch(':id')
+  @HttpCode(200)
+  @ApiOkResponse({ type: UpdateCreateDeleteProducersDto })
+  @ApiBadRequestResponse({ type: ErrorBadRequestZodResponseDto })
+  @ApiInternalServerErrorResponse({ type: ErrorInternalServerResponseDto })
   async update(
     @Param('id') id: string,
     @Body(ZodPipe(updateProducerSchema)) updateProducerDto: UpdateProducerDto,
@@ -58,6 +80,9 @@ class ProducersController {
   }
 
   @Delete(':id')
+  @HttpCode(200)
+  @ApiOkResponse({ type: UpdateCreateDeleteProducersDto })
+  @ApiInternalServerErrorResponse({ type: ErrorInternalServerResponseDto })
   async delete(
     @Param('id') id: string,
   ): Promise<UpdateCreateDeleteProducersDto> {

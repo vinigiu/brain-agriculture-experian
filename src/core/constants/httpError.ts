@@ -13,8 +13,14 @@ export const httpError: HttpErrorTypes = {
     message: 'Bad Request',
     statusCode: HttpStatus.BAD_REQUEST,
   },
-  [HttpErrorMessages.INTERNAL_SERVER_ERROR]: {
+  [HttpErrorMessages.BAD_REQUEST_AREAS]: {
     id: '003',
+    message:
+      'Sum of cultivable area and vegetation area must not be higher than total area',
+    statusCode: HttpStatus.BAD_REQUEST,
+  },
+  [HttpErrorMessages.INTERNAL_SERVER_ERROR]: {
+    id: '004',
     message: 'Internal Server Error',
     statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
   },

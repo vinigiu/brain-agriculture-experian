@@ -2,6 +2,7 @@ import { IsNotEmpty, IsString } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
 import { FarmDto } from '../farm.dto';
+import { FarmEntity } from '@/entities/farm.entity';
 
 class CreateProducerDto {
   @IsString()
@@ -14,10 +15,9 @@ class CreateProducerDto {
   @ApiProperty()
   name: string;
 
-  @IsString()
   @IsNotEmpty()
-  @ApiProperty()
-  farms: Array<FarmDto>;
+  @ApiProperty({ isArray: true, type: FarmDto })
+  farms: Array<FarmEntity>;
 }
 
 export { CreateProducerDto };

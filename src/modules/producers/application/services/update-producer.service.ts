@@ -6,6 +6,7 @@ import { UpdateProducerDto } from '../../dto/request';
 import { IProducersRepository } from '../database/repository/producersRepository.interface';
 import { ApplicationException } from '@/core/errors/exceptions';
 import { HttpErrorMessages } from '@/core/constants';
+import { isAreasValid } from '@/core/utils/verifyAreasRule';
 
 @Injectable()
 class UpdateProducerService extends Service {
@@ -21,6 +22,17 @@ class UpdateProducerService extends Service {
     dto: UpdateProducerDto,
     id: string,
   ): Promise<UpdateCreateDeleteProducersDto> {
+    for (const farm of dto.farms) {
+      const isValid = isAreasValid({
+        cultivableArea: farm.cultivableArea,
+        totalArea: farm.totalArea,
+        vegetationArea: farm.vegetationArea,
+      });
+
+      if (!isValid)
+        throw new ApplicationException(HttpErrorMessages.BAD_REQUEST_AREAS);
+    }
+
     const updatedProducer = await this.producersRespository.update(dto, id);
 
     if (!updatedProducer)

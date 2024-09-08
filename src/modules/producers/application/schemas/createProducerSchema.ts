@@ -1,3 +1,5 @@
+import { cnpjValidator } from '@/core/utils/cnpjValidator.utils';
+import { cpfValidator } from '@/core/utils/cpfValidator.utils';
 import { z } from 'zod';
 
 const createFarmSchema = z.object({
@@ -12,7 +14,11 @@ const createFarmSchema = z.object({
 
 const createProducerSchema = z.object({
   name: z.string(),
-  document: z.string().min(11).max(14),
+  document: z
+    .string()
+    .refine((value) => cpfValidator(value) || cnpjValidator(value), {
+      message: 'Invalid document number',
+    }),
   farms: createFarmSchema,
 });
 

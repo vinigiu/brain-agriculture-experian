@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsDate,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
+import { CultureDto } from './culture.dto';
 
 class FarmDto {
   @IsString()
@@ -34,8 +41,18 @@ class FarmDto {
 
   @IsArray()
   @IsNotEmpty()
+  @ApiProperty({ isArray: true, type: CultureDto })
+  cultures: Array<CultureDto>;
+
+  @IsDate()
+  @IsNotEmpty()
   @ApiProperty()
-  cultures: Array<string>;
+  createdAt: Date;
+
+  @IsDate()
+  @IsNotEmpty()
+  @ApiProperty()
+  updatedAt: Date;
 }
 
 export { FarmDto };
