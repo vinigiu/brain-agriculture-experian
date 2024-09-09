@@ -1,7 +1,7 @@
 # DEPLOYED PROJECT
 - To run the deployed project, access: https://brain-agriculture-experian.onrender.com
 
--You can see the documentation and enpoints at: 
+- You can see the documentation and enpoints at: 
 https://brain-agriculture-experian.onrender.com/api-docs
 
 # RUN PROJECT LOCALLY
