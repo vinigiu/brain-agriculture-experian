@@ -63,7 +63,7 @@ $ npm run test
 
 ## Documentation
 
-- When the app is running, access http://localhost:3333/api-docs if you're running it locally or ____ to access it on deployed environment
+- When the app is running, access http://localhost:3333/api-docs if you're running it locally or [Deployed Project - Swagger](https://brain-agriculture-experian.onrender.com/api-docs) to access it on deployed environment
 
 ## License
 
