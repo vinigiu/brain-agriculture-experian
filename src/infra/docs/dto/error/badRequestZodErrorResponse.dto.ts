@@ -33,7 +33,7 @@ class ErrorBadRequestZodResponseDto {
   message: string;
 
   @ApiProperty({ default: 400 })
-  statusCode: string;
+  statusCode: number;
 
   @ApiProperty()
   timestamp: Date;

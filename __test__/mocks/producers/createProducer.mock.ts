@@ -1,4 +1,4 @@
-import { CreateProducerDto } from "../../src/modules/producers/dto/request"
+import { CreateProducerDto } from "../../../src/modules/producers/dto/request"
 
 const crateProducerMock: CreateProducerDto = {
     document: '12345678900',
@@ -10,7 +10,10 @@ const crateProducerMock: CreateProducerDto = {
       totalArea: 100,
       cultivableArea: 50,
       vegetationArea: 20,
-      cultures: []
+      cultures: [{
+        id: '472387rh28-2i3rug827gr-o2ch3r92h',
+        name: 'Milho'
+      }]
     }],
   }
 

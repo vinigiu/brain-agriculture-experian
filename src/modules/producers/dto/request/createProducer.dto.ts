@@ -1,9 +1,45 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
-import { FarmDto } from '../farm.dto';
-import { FarmEntity } from '@/entities/farm.entity';
 
+class CreateCultureDto {
+  @IsString()
+  @ApiProperty()
+  id: string;
+
+  @IsString()
+  @ApiProperty()
+  name?: string;
+}
+class CreateFarmDto {
+  @IsString()
+  @ApiProperty()
+  name: string;
+
+  @IsString()
+  @ApiProperty()
+  city: string;
+
+  @IsString()
+  @ApiProperty()
+  state: string;
+
+  @IsNumber()
+  @ApiProperty()
+  totalArea: number;
+
+  @IsNumber()
+  @ApiProperty()
+  cultivableArea: number;
+
+  @IsNumber()
+  @ApiProperty()
+  vegetationArea: number;
+
+  @IsArray()
+  @ApiProperty({ isArray: true, type: CreateCultureDto })
+  cultures: Array<CreateCultureDto>;
+}
 class CreateProducerDto {
   @IsString()
   @IsNotEmpty()
@@ -16,8 +52,8 @@ class CreateProducerDto {
   name: string;
 
   @IsNotEmpty()
-  @ApiProperty({ isArray: true, type: FarmDto })
-  farms: Array<FarmEntity>;
+  @ApiProperty({ isArray: true, type: CreateFarmDto })
+  farms: Array<CreateFarmDto>;
 }
 
 export { CreateProducerDto };

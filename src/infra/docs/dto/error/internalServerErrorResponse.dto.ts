@@ -8,7 +8,7 @@ class ErrorInternalServerResponseDto {
   message: string;
 
   @ApiProperty({ default: 500 })
-  statusCode: string;
+  statusCode: number;
 
   @ApiProperty()
   timestamp: Date;

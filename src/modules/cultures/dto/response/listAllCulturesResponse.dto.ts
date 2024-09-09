@@ -6,6 +6,12 @@ class CultureDataResponseDto {
 
   @ApiProperty()
   name: string;
+
+  @ApiProperty()
+  createdAt: Date;
+
+  @ApiProperty()
+  updatedAt: Date;
 }
 
 class ListAllCulturesResponseDto {
