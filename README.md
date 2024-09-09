@@ -5,37 +5,39 @@ $ npm install
 ```
 
 ## Running Docker
+- The Postgres DB will be running on a docker container. To start it, run:
 
 ```bash
 $ docker compose up -d
 ```
 
 ## Prisma Commands
-
-Reads the `schema.prisma` file and updates the generated Prisma Client inside `node_mocules/@prisma/client`
+- To config the DB, run this sequence of commands: 
 ```bash
 $ npm run generate
 ```
+Reads the `schema.prisma` file and updates the generated Prisma Client inside `node_mocules/@prisma/client`
 
-Reads the `schema.prisma` file, create and execute a migration
 ```bash
-$ npx prisma migrate dev --name {migrationName} init
+$ npx prisma migrate dev --name {InsertAMigrationNameInThisFormat} init
 ```
+Reads the `schema.prisma` file, create and execute a migration
 
-Run all undeployed migrations
 ```bash
 $ npm run migrate:deploy
 ```
+Run all undeployed migrations
 
-Seed the database
 ```bash
 $ npm run seed
 ```
+Seed the database
 
-Generates a Prisma Interface
+- If you want to access a graphical interface of your DB, run:
 ```bash
 $ npm run studio
 ```
+Generates a Prisma Interface
 
 ## Running the app
 
@@ -46,8 +48,6 @@ $ npm run start
 # watch mode
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
 ```
 
 ## Test
@@ -56,22 +56,11 @@ $ npm run start:prod
 # unit tests
 $ npm run test
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
-## Support
+## Documentation
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- When the app is running, access http://localhost:3333/api-docs if you're running it locally or ____ to access it on deployed environment
 
 ## License
 
