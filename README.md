@@ -4,6 +4,9 @@
 $ npm install
 ```
 
+## ADD ENV
+- Create a .env following the .env.example
+
 ## Running Docker
 - The Postgres DB will be running on a docker container. To start it, run:
 
