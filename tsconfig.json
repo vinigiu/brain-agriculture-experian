@@ -21,6 +21,6 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
   },
-  "include": ["src/**/*", "package.json"],
-  "exclude": ["node_modules", "__test__/**/*"]
+  "include": ["src/**/*", "package.json", "__test__/**/*"],
+  "exclude": ["node_modules"]
 }
