@@ -4,7 +4,7 @@ import { ListAllCulturesResponseDto } from '../../dto/response';
 import {
   ApiInternalServerErrorResponse,
   ApiOkResponse,
-  ApiProperty,
+  ApiOperation,
 } from '@nestjs/swagger';
 import { ErrorInternalServerResponseDto } from '@/infra/docs/dto/error';
 
@@ -15,7 +15,7 @@ class CulturesController {
   ) {}
 
   @Get()
-  @ApiProperty({ description: 'Lista das culturas registradas no sistema' })
+  @ApiOperation({ summary: 'Lista das culturas registradas no sistema' })
   @ApiOkResponse({ type: ListAllCulturesResponseDto })
   @ApiInternalServerErrorResponse({ type: ErrorInternalServerResponseDto })
   async listAll(): Promise<ListAllCulturesResponseDto> {

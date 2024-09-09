@@ -4,7 +4,7 @@ import { GetDashboardDataResponseDto } from '../../dto/response';
 import {
   ApiInternalServerErrorResponse,
   ApiOkResponse,
-  ApiProperty,
+  ApiOperation,
 } from '@nestjs/swagger';
 import { ErrorInternalServerResponseDto } from '@/infra/docs/dto/error';
 
@@ -13,7 +13,7 @@ class DashboardController {
   constructor(private readonly dashboardDataService: DashboardDataService) {}
 
   @Get()
-  @ApiProperty({ description: 'Dados para a construção dos dashboards' })
+  @ApiOperation({ summary: 'Dados para a construção dos dashboards' })
   @ApiOkResponse({ type: GetDashboardDataResponseDto })
   @ApiInternalServerErrorResponse({ type: ErrorInternalServerResponseDto })
   async getData(): Promise<GetDashboardDataResponseDto> {
