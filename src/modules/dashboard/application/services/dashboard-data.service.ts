@@ -53,7 +53,6 @@ class DashboardDataService extends Service {
   }
 
   private getTotals(farms: Farm[]) {
-    console.log('FARMS::::::', farms);
     let totalCultivableArea: number = 0;
     let totalVegetationArea: number = 0;
     let totalFarmsArea: number = 0;
