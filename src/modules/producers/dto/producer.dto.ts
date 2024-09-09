@@ -6,32 +6,36 @@ import { FarmEntity } from '@/entities/farm.entity';
 class ProducerDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ description: 'Id do produtor' })
   id: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ description: 'Nome do produtor' })
   name: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ description: 'Número do documento (CPF/CNPJ) do produtor' })
   document: string;
 
   @IsArray()
   @IsNotEmpty()
-  @ApiProperty({ isArray: true, type: FarmDto })
+  @ApiProperty({
+    description: 'Listagem de fazendas do produtor',
+    isArray: true,
+    type: FarmDto,
+  })
   farms: Array<FarmEntity>;
 
   @IsDate()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ description: 'Data de criação do produtor' })
   createdAt: Date;
 
   @IsDate()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ description: 'Data da última atualização do produtor' })
   updatedAt: Date;
 }
 

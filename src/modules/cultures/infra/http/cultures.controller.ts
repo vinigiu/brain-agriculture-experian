@@ -1,7 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
 import { ListAllCulturesService } from '../../application/services';
 import { ListAllCulturesResponseDto } from '../../dto/response';
-import { ApiInternalServerErrorResponse, ApiOkResponse } from '@nestjs/swagger';
+import {
+  ApiInternalServerErrorResponse,
+  ApiOkResponse,
+  ApiProperty,
+} from '@nestjs/swagger';
 import { ErrorInternalServerResponseDto } from '@/infra/docs/dto/error';
 
 @Controller('cultures')
@@ -11,6 +15,7 @@ class CulturesController {
   ) {}
 
   @Get()
+  @ApiProperty({ description: 'Lista das culturas registradas no sistema' })
   @ApiOkResponse({ type: ListAllCulturesResponseDto })
   @ApiInternalServerErrorResponse({ type: ErrorInternalServerResponseDto })
   async listAll(): Promise<ListAllCulturesResponseDto> {

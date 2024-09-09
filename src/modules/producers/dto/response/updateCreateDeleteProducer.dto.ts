@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 class UpdateCreateDeleteProducersDto {
-  @ApiProperty()
+  @ApiProperty({ description: 'Indica se a operação foi bem sucedida' })
   success: boolean;
 }
 

@@ -1,21 +1,25 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 class CultureDataResponseDto {
-  @ApiProperty()
+  @ApiProperty({ description: 'Id da Cultura' })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Nome da Cultura' })
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Data de criação da Cultura' })
   createdAt: Date;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Data da última atualização da Cultura' })
   updatedAt: Date;
 }
 
 class ListAllCulturesResponseDto {
-  @ApiProperty({ isArray: true, type: CultureDataResponseDto })
+  @ApiProperty({
+    description: 'Listagem das culturas',
+    isArray: true,
+    type: CultureDataResponseDto,
+  })
   cultures: Array<CultureDataResponseDto>;
 }
 

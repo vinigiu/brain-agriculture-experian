@@ -1,55 +1,59 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 class FarmsPerState {
-  @ApiProperty()
+  @ApiProperty({ description: 'Sigla do Estado' })
   state: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Total de fazendas' })
   totalFarms: number;
 }
 
 class FarmsPerCulture {
-  @ApiProperty()
+  @ApiProperty({ description: 'Id da Cultura' })
   cultureId: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Nome da cultura' })
   cultureName: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Quantidade de fazendas' })
   totalFarms: number;
 }
 
 class SoilUse {
-  @ApiProperty()
+  @ApiProperty({ description: 'Área total utilizada' })
   totalUsed: number;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Área total cultivável' })
   totalCultivableArea: number;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Área total de vegetação' })
   totalVegetationArea: number;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Percentual de área cultivável' })
   cultivableAreaPercentage: number;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Percentual de área de vegetação' })
   vegetationAreaPercentage: number;
 }
 
 class GetDashboardDataResponseDto {
-  @ApiProperty()
+  @ApiProperty({ description: 'Quantidade total de fazendas' })
   totalFarms: number;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Quantidade total de área das fazendas' })
   totalFarmsArea: number;
 
-  @ApiProperty({ isArray: true, type: FarmsPerState })
+  @ApiProperty({ description: 'Quantidade de fazendas por estado' })
   totalFarmsPerState: Array<FarmsPerState>;
 
-  @ApiProperty({ isArray: true, type: FarmsPerCulture })
+  @ApiProperty({
+    description: 'Quantidade de fazendas por tipo de cultura',
+    isArray: true,
+    type: FarmsPerCulture,
+  })
   totalFarmsPerCulture: Array<FarmsPerCulture>;
 
-  @ApiProperty({ type: SoilUse })
+  @ApiProperty({ description: 'Dados de uso do solo', type: SoilUse })
   soilUse: SoilUse;
 }
 

@@ -5,27 +5,31 @@ import { ApiProperty } from '@nestjs/swagger';
 class CultureDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ description: 'Id da cultura' })
   id: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ description: 'Nome da cultura' })
   name: string;
 
   @IsArray()
   @IsNotEmpty()
-  @ApiProperty({ isArray: true, type: FarmDto })
+  @ApiProperty({
+    description: 'Listagem de fazendas que possuem esta cultura',
+    isArray: true,
+    type: FarmDto,
+  })
   farms: Array<FarmDto>;
 
   @IsDate()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ description: 'Data de criação desta cultura' })
   createdAt: Date;
 
   @IsDate()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ description: 'Data da última alteração desta cultura' })
   updatedAt: Date;
 }
 

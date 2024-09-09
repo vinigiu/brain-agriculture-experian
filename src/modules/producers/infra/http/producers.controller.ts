@@ -26,6 +26,7 @@ import {
   ApiBadRequestResponse,
   ApiInternalServerErrorResponse,
   ApiOkResponse,
+  ApiProperty,
 } from '@nestjs/swagger';
 import {
   ErrorBadRequestZodResponseDto,
@@ -43,6 +44,7 @@ class ProducersController {
   ) {}
 
   @Get()
+  @ApiProperty({ description: 'Listagem de produtores' })
   @ApiOkResponse({ type: ListAllProducersDto })
   @ApiInternalServerErrorResponse({ type: ErrorInternalServerResponseDto })
   async listAll(): Promise<ListAllProducersDto> {
@@ -50,6 +52,7 @@ class ProducersController {
   }
 
   @Get(':id')
+  @ApiProperty({ description: 'Detalhes de um produtor específico' })
   @ApiOkResponse({ type: DetailProducersDto })
   @ApiInternalServerErrorResponse({ type: ErrorInternalServerResponseDto })
   async detail(@Param('id') id: string): Promise<DetailProducersDto> {
@@ -57,6 +60,7 @@ class ProducersController {
   }
 
   @Post()
+  @ApiProperty({ description: 'Cria um registro de produtor' })
   @HttpCode(200)
   @ApiOkResponse({ type: UpdateCreateDeleteProducersDto })
   @ApiBadRequestResponse({ type: ErrorBadRequestZodResponseDto })
@@ -68,6 +72,7 @@ class ProducersController {
   }
 
   @Patch(':id')
+  @ApiProperty({ description: 'Atualiza o registro de um produtor' })
   @HttpCode(200)
   @ApiOkResponse({ type: UpdateCreateDeleteProducersDto })
   @ApiBadRequestResponse({ type: ErrorBadRequestZodResponseDto })
@@ -80,6 +85,7 @@ class ProducersController {
   }
 
   @Delete(':id')
+  @ApiProperty({ description: 'Exclui o registro de um produtor' })
   @HttpCode(200)
   @ApiOkResponse({ type: UpdateCreateDeleteProducersDto })
   @ApiInternalServerErrorResponse({ type: ErrorInternalServerResponseDto })
